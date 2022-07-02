@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,500;1,800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +14,7 @@ html {
 body {
   width: 1920px;
   height: 1080px;
+  margin: auto;
   background: #fff;
 }
 
@@ -20,16 +23,67 @@ body {
   height: 100%;
 }
 
-#app {
+#app,
+#left-side > header {
   display: flex;
+}
+
+#app {
   background: pink;
 }
 
 #left-side {
   width: 50%;
-  background: gray;
+  font-family: "Nunito";
+  font-style: italic;
+  text-transform: uppercase;
 }
 
-#left-side header {
+#left-side > header {
   background: #7025fb;
+  height: 6.5%;
+  padding: 0 40px;
+  align-items: center;
+}
+
+.left-side-picture {
+  height: calc(100% - 6.5%);
+  background-position: center;
+  background-size: cover;
+  padding: 180px 237px 0 100px;
+}
+
+.left-side-picture h2 {
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 5rem;
+  color: #212529;
+}
+
+.left-side-picture h3 {
+  font-weight: 500;
+  font-size: 2.4rem;
+  line-height: 6.5rem;
+  color: #e5e6e8;
+}
+
+#picture-1 {
+  background-image: url("./img/Landing page- scrolling photo.png");
+}
+
+#picture-2 {
+  background-image: url("./img/unsplash_27LH_0jXKYI.png");
+}
+
+#picture-3 {
+  background-image: url("./img/unsplash_27LH_0jXKYI-1.png");
+}
+
+#picture-3 h3 {
+  color: #093f68;
+  text-align: end;
+}
+
+#picture-4 {
+  background-image: url("./img/unsplash_27LH_0jXKYI-2.png");
 }
