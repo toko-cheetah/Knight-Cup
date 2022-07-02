@@ -8,3 +8,28 @@
 html {
   font-size: 10px;
 }
+
+body {
+  width: 1920px;
+  height: 1080px;
+  background: #fff;
+}
+
+#root,
+#app {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  background: pink;
+}
+
+#left-side {
+  width: 50%;
+  background: gray;
+}
+
+#left-side header {
+  background: #7025fb;
+}

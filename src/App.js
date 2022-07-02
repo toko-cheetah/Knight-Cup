@@ -1,9 +1,11 @@
 import "./App.css";
+import LeftSide from "./Components/LeftSide";
 
 function App() {
   return (
-    <div>
-      <p>hello</p>
+    <div id="app">
+      <LeftSide />
+      <div>hi</div>
     </div>
   );
 }
