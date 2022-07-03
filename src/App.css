@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,500;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,700;0,800;1,500;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
 * {
   margin: 0;
@@ -14,32 +15,87 @@ html {
 body {
   width: 1920px;
   height: 1080px;
-  margin: auto;
+  margin: 0 auto;
   background: #fff;
 }
 
+h1,
+h1 span,
+.left-side-picture h2,
+.left-side-picture h3 {
+  font-family: "Nunito";
+  text-transform: uppercase;
+}
+
+h1,
+h1 span,
+button {
+  font-style: normal;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 8rem;
+  line-height: 10.9rem;
+  color: #ffffff;
+
+  margin-bottom: 100px;
+}
+
+h1 span {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.7rem;
+  color: #212529;
+
+  vertical-align: middle;
+  display: inline-block;
+  transform: translateY(-1rem);
+}
+
+button {
+  padding: 13px 60px 13px 24px;
+  background: #212529;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  background-image: url("./img/arrow-right-circle.png");
+  background-position: right 24px center;
+  background-repeat: no-repeat;
+
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.7rem;
+  text-transform: capitalize;
+}
+
+button:hover {
+  border: 4px solid rgba(194, 165, 249, 0.8);
+  margin: -4px;
+}
+
 #root,
-#app {
+#app,
+#right-side > * {
   height: 100%;
 }
 
 #app,
-#left-side > header {
+#left-side header {
   display: flex;
 }
 
-#app {
-  background: pink;
+#left-side,
+#right-side {
+  width: 50%;
 }
 
 #left-side {
-  width: 50%;
-  font-family: "Nunito";
   font-style: italic;
-  text-transform: uppercase;
 }
 
-#left-side > header {
+#left-side header {
   background: #7025fb;
   height: 6.5%;
   padding: 0 40px;
@@ -86,4 +142,9 @@ body {
 
 #picture-4 {
   background-image: url("./img/unsplash_27LH_0jXKYI-2.png");
+}
+
+#get-started {
+  background: #fd5334;
+  padding: 200px 85px;
 }
