@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,700;0,800;1,500;1,800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
@@ -22,7 +22,7 @@ body {
 h1,
 h1 span,
 .left-side-picture h2,
-.left-side-picture h3 {
+.left-side-picture p {
   font-family: "Nunito";
   text-transform: uppercase;
 }
@@ -54,25 +54,39 @@ h1 span {
 }
 
 button {
-  padding: 13px 60px 13px 24px;
-  background: #212529;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  background-image: url("./img/arrow-right-circle.png");
-  background-position: right 24px center;
-  background-repeat: no-repeat;
-
   font-family: "Open Sans";
   font-weight: 400;
   font-size: 2rem;
   line-height: 2.7rem;
   text-transform: capitalize;
+  border-radius: 8px;
 }
 
-button:hover {
+button.next {
+  padding: 13px 60px 13px 24px;
+  background: #212529;
+  color: #ffffff;
+  border: none;
+  background-image: url("./img/arrow-right-circle.png");
+  background-position: right 24px center;
+  background-repeat: no-repeat;
+}
+
+button.next:hover {
   border: 4px solid rgba(194, 165, 249, 0.8);
   margin: -4px;
+}
+
+button.back {
+  padding: 13px 24px;
+  color: #212529;
+  background: none;
+  border: 1px solid #212529;
+}
+
+button.back:hover {
+  background: rgba(185, 180, 196, 0.3);
+  border: 1px solid rgba(194, 165, 249, 0.8);
 }
 
 #root,
@@ -82,7 +96,10 @@ button:hover {
 }
 
 #app,
-#left-side header {
+#left-side header,
+#right-side header,
+form,
+.buttons {
   display: flex;
 }
 
@@ -95,11 +112,15 @@ button:hover {
   font-style: italic;
 }
 
+#left-side header,
+#right-side header {
+  height: 6.5%;
+  align-items: center;
+}
+
 #left-side header {
   background: #7025fb;
-  height: 6.5%;
   padding: 0 40px;
-  align-items: center;
 }
 
 .left-side-picture {
@@ -116,7 +137,7 @@ button:hover {
   color: #212529;
 }
 
-.left-side-picture h3 {
+.left-side-picture p {
   font-weight: 500;
   font-size: 2.4rem;
   line-height: 6.5rem;
@@ -147,4 +168,77 @@ button:hover {
 #get-started {
   background: #fd5334;
   padding: 200px 85px;
+}
+
+#right-side {
+  font-family: "Open Sans";
+  font-style: normal;
+}
+
+#right-side header,
+#right-side main {
+  padding: 0 174px 0 48px;
+}
+
+#right-side header,
+.heading p {
+  text-transform: capitalize;
+}
+
+#right-side header {
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: #212529;
+  border-bottom: 1px solid rgba(185, 180, 196, 0.3);
+}
+
+.heading {
+  margin: 115px 0 85px;
+}
+
+.heading h2 {
+  font-weight: 600;
+  font-size: 3.2rem;
+  line-height: 150%;
+  color: #000000;
+}
+
+.heading p {
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 150%;
+  color: #95939a;
+}
+
+form {
+  flex-direction: column;
+}
+
+input {
+  padding: 8px 16px;
+  border: none;
+  background: #ffffff;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 150%;
+  color: #212529;
+}
+
+input:hover {
+  background: #f8f9fa;
+  color: rgba(33, 37, 41, 0.5);
+}
+
+input:active {
+  background: #e9ecef;
+  color: #212529;
+}
+
+.buttons {
+  justify-content: space-between;
+  margin-top: 88px;
 }

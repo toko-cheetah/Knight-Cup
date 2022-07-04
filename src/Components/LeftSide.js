@@ -22,7 +22,7 @@ export default function LeftSide() {
               <h2>
                 “When you see a good move, <br /> look for a better one.”
               </h2>
-              <h3>- Emanuel Lasker</h3>
+              <p>- Emanuel Lasker</p>
             </div>
           }
         />
@@ -35,7 +35,7 @@ export default function LeftSide() {
                 “Many have become chess masters; <br /> no one has become the
                 master of chess.”
               </h2>
-              <h3>- Siegbert Tarrasch</h3>
+              <p>- Siegbert Tarrasch</p>
             </div>
           }
         />

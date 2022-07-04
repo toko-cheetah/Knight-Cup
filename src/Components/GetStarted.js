@@ -8,8 +8,8 @@ export default function GetStarted() {
         Chess says <span>a lot about</span> <br /> who we are
       </h1>
 
-      <Link to="/personal-info">
-        <button>Get started</button>
+      <Link to={"/personal-info"}>
+        <button className="next">Get started</button>
       </Link>
     </div>
   );
