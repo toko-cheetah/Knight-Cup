@@ -11,13 +11,11 @@ export default function PersonalInfo({ onChange, data, isFilling, validate }) {
     !validate.phone.isValid && alert(validate.phone.message);
     !validate.date_of_birth.isValid && alert(validate.date_of_birth.message);
 
-    return (
-      validate.name.isValid &&
+    validate.name.isValid &&
       validate.email.isValid &&
       validate.phone.isValid &&
       validate.date_of_birth.isValid &&
-      navigate("/chess-experience")
-    );
+      navigate("/chess-experience");
   }
 
   return (

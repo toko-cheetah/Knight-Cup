@@ -6,7 +6,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
   const [characterOptions, setCharacterOptions] = useState([]);
   const navigate = useNavigate();
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     setCharacterOptions(() => {
@@ -23,20 +23,25 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
     });
   }, [characters]);
 
-  function validation() {
+  function validationAndSend() {
     !validate.experience_level.isValid &&
       alert(validate.experience_level.message);
     !validate.character_id.isValid && alert(validate.character_id.message);
     !validate.already_participated.isValid &&
       alert(validate.already_participated.message);
 
-    return (
-      validate.experience_level.isValid &&
+    validate.experience_level.isValid &&
       validate.character_id.isValid &&
       validate.already_participated.isValid &&
-      navigate("/completed")
-    );
+      navigate("/completed");
   }
+
+  document.getElementById(data.experience_level) &&
+    (document.getElementById(data.experience_level).selected = true);
+  document.getElementById(data.character_id) &&
+    (document.getElementById(data.character_id).selected = true);
+  document.getElementById(data.already_participated) &&
+    (document.getElementById(data.already_participated).checked = true);
 
   return (
     <div id="chess-experience">
@@ -70,15 +75,23 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
           <div>
             <select name="experience_level" onChange={onChange}>
               <option value="">Level of knowledge *</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="professional">Professional</option>
+              <option id="beginner" value="beginner">
+                Beginner
+              </option>
+              <option id="intermediate" value="intermediate">
+                Intermediate
+              </option>
+              <option id="professional" value="professional">
+                Professional
+              </option>
             </select>
 
             <select name="character_id" onChange={onChange}>
               <option value="">Choose your character *</option>
               {characterOptions}
-              <option value={characters.length + 1}>Other</option>
+              <option value={characters.length + 1} id={characters.length + 1}>
+                Other
+              </option>
             </select>
           </div>
 
@@ -88,6 +101,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
             <label>
               <input
                 type={"radio"}
+                id={"true"}
                 value={true}
                 name={"already_participated"}
                 onChange={onChange}
@@ -98,6 +112,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
             <label>
               <input
                 type={"radio"}
+                id={"false"}
                 value={false}
                 name={"already_participated"}
                 onChange={onChange}
@@ -112,7 +127,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
             <button className="back">Back</button>
           </Link>
 
-          <button className="next" id="done" onClick={validation}>
+          <button className="next" id="done" onClick={validationAndSend}>
             Done
           </button>
         </div>
