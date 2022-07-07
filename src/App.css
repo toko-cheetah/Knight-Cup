@@ -77,6 +77,11 @@ button.next:hover {
   margin: -4px;
 }
 
+button#done {
+  padding: 13px 24px;
+  background-image: none;
+}
+
 button.back {
   padding: 13px 24px;
   color: #212529;
@@ -103,7 +108,8 @@ button.back:hover {
 .wizard-1,
 .wizard-2,
 form,
-.buttons {
+.buttons,
+#form-chess-experience {
   display: flex;
 }
 
@@ -127,8 +133,12 @@ form,
   padding: 0 40px;
 }
 
-.left-side-picture {
+.left-side-picture,
+#right-side main {
   height: calc(100% - 6.5%);
+}
+
+.left-side-picture {
   background-position: center;
   background-size: cover;
   padding: 180px 237px 0 100px;
@@ -160,7 +170,7 @@ form,
   background-image: url("./img/unsplash_27LH_0jXKYI-1.png");
 }
 
-#picture-3 h3 {
+#picture-3 p {
   color: #093f68;
   text-align: end;
 }
@@ -177,14 +187,20 @@ form,
 #right-side,
 #right-side p,
 #right-side h2,
-#right-side input {
+#right-side input,
+#right-side select,
+#right-side label {
   font-family: "Open Sans";
   font-style: normal;
 }
 
+#right-side main {
+  padding: 60px 174px 154px 0;
+}
+
 #right-side header,
 #right-side main {
-  padding: 0 174px 0 48px;
+  padding-left: 48px;
 }
 
 #right-side header,
@@ -206,7 +222,6 @@ form,
 }
 
 .wizard {
-  margin-top: 60px;
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 150%;
@@ -257,6 +272,14 @@ form,
   color: #95939a;
 }
 
+.checked-wizard {
+  background: #e9faf1;
+  border: none;
+  background-image: url("./img/check-all.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .heading {
   margin: 115px 0 85px;
 }
@@ -275,7 +298,8 @@ form,
   color: #95939a;
 }
 
-#form-personal-info {
+#form-personal-info,
+#form-chess-experience {
   flex-direction: column;
 }
 
@@ -311,11 +335,48 @@ form,
   color: #212529;
 }
 
-.buttons {
-  justify-content: space-between;
-  margin-top: 88px;
+#right-side main {
+  position: relative;
 }
 
-.red-star {
-  color: #dc3545;
+.buttons {
+  justify-content: space-between;
+  position: absolute;
+  bottom: 154px;
+  width: calc(100% - 174px - 48px);
+}
+
+#form-chess-experience select {
+  width: 48%;
+  padding: 8px 16px;
+  margin-bottom: 80px;
+  margin-right: 4%;
+  color: #212529;
+  background: #ffffff;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  border: none;
+
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 150%;
+}
+
+#form-chess-experience select:last-child {
+  margin-right: 0;
+}
+
+#input-radio {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+}
+
+#input-radio > p {
+  margin-bottom: 20px;
+}
+
+#input-radio > label {
+  vertical-align: middle;
+  margin-right: 16px;
 }

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import LeftSide from "./Components/LeftSide";
 import GetStarted from "./Components/GetStarted";
 import PersonalInfo from "./Components/PersonalInfo";
+import ChessExperience from "./Components/ChessExperience";
 
 function App() {
   const [data, setData] = useState({
@@ -16,6 +17,7 @@ function App() {
     already_participated: storageData("already_participated"),
     character_id: storageData("character_id"),
   });
+  const [characters, setCharacters] = useState([]);
 
   const validate = {
     name: {
@@ -26,7 +28,7 @@ function App() {
       isValid:
         data.email.slice(-"@redberry.ge".length) === "@redberry.ge" &&
         data.email.length > "@redberry.ge".length,
-      message: "Email should be <your email>@redberry.ge",
+      message: "Email should be <name>@redberry.ge",
     },
     phone: {
       isValid: data.phone.length === 9 && !/\D/.test(data.phone),
@@ -38,7 +40,7 @@ function App() {
     },
     experience_level: {
       isValid: data.experience_level,
-      message: "Experience level is required!",
+      message: "Level of knowledge is required!",
     },
     already_participated: {
       isValid: data.already_participated,
@@ -58,6 +60,12 @@ function App() {
 
   sessionStorage.setItem("data", JSON.stringify(data));
 
+  useEffect(() => {
+    fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
+      .then((res) => res.json())
+      .then((data) => setCharacters(data));
+  }, []);
+
   function storageData(el) {
     const dat = JSON.parse(sessionStorage.getItem("data"));
     return dat ? dat[el] : "";
@@ -68,7 +76,7 @@ function App() {
 
     setData((prev) => ({
       ...prev,
-      [e.id]: e.value,
+      [e.name]: e.value,
     }));
   }
 
@@ -86,6 +94,17 @@ function App() {
                 onChange={onChange}
                 data={data}
                 isFilling={isFilling}
+                validate={validate}
+              />
+            }
+          />
+          <Route
+            path="/chess-experience"
+            element={
+              <ChessExperience
+                onChange={onChange}
+                data={data}
+                characters={characters}
                 validate={validate}
               />
             }

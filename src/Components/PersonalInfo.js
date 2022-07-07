@@ -53,37 +53,33 @@ export default function PersonalInfo({ onChange, data, isFilling, validate }) {
         <form id="form-personal-info">
           <input
             type={"text"}
-            id="name"
+            name="name"
             placeholder="Name *"
             onChange={onChange}
             value={data.name}
-            required
           />
           <input
             type={"email"}
-            id="email"
+            name="email"
             placeholder="Email address *"
             onChange={onChange}
             value={data.email}
-            required
           />
           <input
             type={"number"}
-            id="phone"
+            name="phone"
             placeholder="Phone number *"
             onChange={onChange}
             value={data.phone}
-            required
           />
           <input
             type={type}
             onFocus={() => setType("date")}
             onBlur={() => setType("text")}
-            id="date_of_birth"
+            name="date_of_birth"
             placeholder="Date of birth *"
             onChange={onChange}
             value={data.date_of_birth}
-            required
           />
         </form>
 
