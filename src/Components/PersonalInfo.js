@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function PersonalInfo({ onChange, data, validate }) {
+export default function PersonalInfo({
+  onChange,
+  data,
+  validate,
+  validateInfo,
+}) {
   const [type, setType] = useState("text");
   const navigate = useNavigate();
 
-  function validation() {
-    !validate.name.isValid && alert(validate.name.message);
-    !validate.email.isValid && alert(validate.email.message);
-    !validate.phone.isValid && alert(validate.phone.message);
-    !validate.date_of_birth.isValid && alert(validate.date_of_birth.message);
+  function validateAndContinue() {
+    validateInfo(["name", "email", "phone", "date_of_birth"]);
 
     validate.name.isValid &&
       validate.email.isValid &&
@@ -86,7 +88,7 @@ export default function PersonalInfo({ onChange, data, validate }) {
             <button className="back">Back</button>
           </Link>
 
-          <button className="next" onClick={validation}>
+          <button className="next" onClick={validateAndContinue}>
             Next
           </button>
         </div>

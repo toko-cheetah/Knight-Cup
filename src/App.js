@@ -8,7 +8,7 @@ import PersonalInfo from "./Components/PersonalInfo";
 import ChessExperience from "./Components/ChessExperience";
 import Completed from "./Components/Completed";
 
-function App() {
+export default function App() {
   const [data, setData] = useState({
     name: storageData("name"),
     email: storageData("email"),
@@ -74,6 +74,12 @@ function App() {
     }));
   }
 
+  function validateInfo(array) {
+    return array.map(
+      (item) => !validate[item].isValid && alert(validate[item].message)
+    );
+  }
+
   return (
     <div id="app">
       <LeftSide />
@@ -89,6 +95,7 @@ function App() {
                 onChange={onChange}
                 data={data}
                 validate={validate}
+                validateInfo={validateInfo}
               />
             }
           />
@@ -101,6 +108,7 @@ function App() {
                 data={data}
                 characters={characters}
                 validate={validate}
+                validateInfo={validateInfo}
               />
             }
           />
@@ -111,5 +119,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

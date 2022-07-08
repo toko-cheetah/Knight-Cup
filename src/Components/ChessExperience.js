@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Characters from "./Characters";
 
-export default function PersonalInfo({ onChange, data, characters, validate }) {
+export default function PersonalInfo({
+  onChange,
+  data,
+  characters,
+  validate,
+  validateInfo,
+}) {
   const [characterOptions, setCharacterOptions] = useState([]);
   const navigate = useNavigate();
   const requestData = {
@@ -32,12 +38,21 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
     });
   }, [characters]);
 
-  function validationAndSend() {
-    !validate.experience_level.isValid &&
-      alert(validate.experience_level.message);
-    !validate.character_id.isValid && alert(validate.character_id.message);
-    !validate.already_participated.isValid &&
-      alert(validate.already_participated.message);
+  const getEl = (id) => document.getElementById(id);
+  const saveSelectedInfo = (value, selected) =>
+    getEl(value) && (getEl(value)[selected] = true);
+  useEffect(() => {
+    saveSelectedInfo(data.experience_level, "selected");
+    saveSelectedInfo(data.character_id, "selected");
+    saveSelectedInfo(data.already_participated, "checked");
+  }, [
+    getEl(data.experience_level),
+    getEl(data.character_id),
+    getEl(data.already_participated),
+  ]);
+
+  function validateAndSend() {
+    validateInfo(["experience_level", "character_id", "already_participated"]);
 
     validate.experience_level.isValid &&
       validate.character_id.isValid &&
@@ -49,22 +64,14 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err)) &&
-      navigate("/completed") &&
-      sessionStorage.clear();
+      }).then((res) =>
+        res.ok
+          ? (navigate("/completed"), sessionStorage.clear())
+          : alert(
+              "An error has occurred! Please, return to the home page and try the registration again!"
+            )
+      );
   }
-
-  // console.log(document.getElementById(data.character_id));
-
-  document.getElementById(data.experience_level) &&
-    (document.getElementById(data.experience_level).selected = true);
-  document.getElementById(data.character_id) &&
-    (document.getElementById(data.character_id).selected = true);
-  document.getElementById(data.already_participated) &&
-    (document.getElementById(data.already_participated).checked = true);
 
   return (
     <div id="chess-experience">
@@ -101,7 +108,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
               <option id="beginner" value="beginner">
                 Beginner
               </option>
-              <option id="intermediate" value="intermediate">
+              <option id="normal" value="normal">
                 Intermediate
               </option>
               <option id="professional" value="professional">
@@ -112,9 +119,6 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
             <select name="character_id" onChange={onChange}>
               <option value="">Choose your character *</option>
               {characterOptions}
-              <option value={characters.length + 1} id={characters.length + 1}>
-                Other
-              </option>
             </select>
           </div>
 
@@ -150,7 +154,7 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
             <button className="back">Back</button>
           </Link>
 
-          <button className="next" id="done" onClick={validationAndSend}>
+          <button className="next" id="done" onClick={validateAndSend}>
             Done
           </button>
         </div>
