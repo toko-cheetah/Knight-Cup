@@ -109,7 +109,8 @@ button.back:hover {
 .wizard-2,
 form,
 .buttons,
-#form-chess-experience {
+#form-chess-experience,
+#completed {
   display: flex;
 }
 
@@ -299,7 +300,8 @@ form,
 }
 
 #form-personal-info,
-#form-chess-experience {
+#form-chess-experience,
+#completed {
   flex-direction: column;
 }
 
@@ -379,4 +381,19 @@ form,
 #input-radio > label {
   vertical-align: middle;
   margin-right: 16px;
+}
+
+#completed {
+  justify-content: center;
+  align-items: center;
+}
+
+#completed p {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 3.6rem;
+  line-height: 150%;
+  color: #000000;
+  margin-top: 16px;
 }

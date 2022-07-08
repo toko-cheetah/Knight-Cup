@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function PersonalInfo({ onChange, data, isFilling, validate }) {
+export default function PersonalInfo({ onChange, data, validate }) {
   const [type, setType] = useState("text");
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export default function PersonalInfo({ onChange, data, isFilling, validate }) {
       <main>
         <div className="wizard">
           <div>
-            <div className="wizard-1" style={isFilling}>
+            <div className="wizard-1">
               <p>1</p>
             </div>
 

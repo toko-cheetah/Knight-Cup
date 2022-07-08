@@ -5,8 +5,17 @@ import Characters from "./Characters";
 export default function PersonalInfo({ onChange, data, characters, validate }) {
   const [characterOptions, setCharacterOptions] = useState([]);
   const navigate = useNavigate();
-
-  // console.log(data);
+  const requestData = {
+    ...data,
+    already_participated: data.already_participated === "true",
+    character_id: Number(data.character_id),
+    date_of_birth:
+      data.date_of_birth.slice(5, 7) +
+      "/" +
+      data.date_of_birth.slice(-2) +
+      "/" +
+      data.date_of_birth.slice(0, 4),
+  };
 
   useEffect(() => {
     setCharacterOptions(() => {
@@ -33,8 +42,22 @@ export default function PersonalInfo({ onChange, data, characters, validate }) {
     validate.experience_level.isValid &&
       validate.character_id.isValid &&
       validate.already_participated.isValid &&
-      navigate("/completed");
+      fetch("https://chess-tournament-api.devtest.ge/api/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err)) &&
+      navigate("/completed") &&
+      sessionStorage.clear();
   }
+
+  // console.log(document.getElementById(data.character_id));
 
   document.getElementById(data.experience_level) &&
     (document.getElementById(data.experience_level).selected = true);

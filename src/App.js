@@ -6,6 +6,7 @@ import LeftSide from "./Components/LeftSide";
 import GetStarted from "./Components/GetStarted";
 import PersonalInfo from "./Components/PersonalInfo";
 import ChessExperience from "./Components/ChessExperience";
+import Completed from "./Components/Completed";
 
 function App() {
   const [data, setData] = useState({
@@ -18,7 +19,6 @@ function App() {
     character_id: storageData("character_id"),
   });
   const [characters, setCharacters] = useState([]);
-
   const validate = {
     name: {
       isValid: data.name.length > 1,
@@ -52,12 +52,6 @@ function App() {
     },
   };
 
-  const [isFilling, setIsFilling] = useState({
-    background: "none",
-    border: "1px solid #e5e6e8",
-  });
-  // setIsFilling({ background: "#E9FAF1", border: "none" })
-
   sessionStorage.setItem("data", JSON.stringify(data));
 
   useEffect(() => {
@@ -87,17 +81,18 @@ function App() {
       <div id="right-side">
         <Routes>
           <Route exact path="/" element={<GetStarted />} />
+
           <Route
             path="/personal-info"
             element={
               <PersonalInfo
                 onChange={onChange}
                 data={data}
-                isFilling={isFilling}
                 validate={validate}
               />
             }
           />
+
           <Route
             path="/chess-experience"
             element={
@@ -109,6 +104,8 @@ function App() {
               />
             }
           />
+
+          <Route path="/completed" element={<Completed />} />
         </Routes>
       </div>
     </div>
