@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,700;0,800;1,500;1,800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap");
 
+:root {
+  --dark-gray: #212529;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -46,7 +50,7 @@ h1 span {
   font-weight: 700;
   font-size: 2rem;
   line-height: 2.7rem;
-  color: #212529;
+  color: var(--dark-gray);
 
   vertical-align: middle;
   display: inline-block;
@@ -64,7 +68,7 @@ button {
 
 button.next {
   padding: 13px 60px 13px 24px;
-  background: #212529;
+  background: var(--dark-gray);
   color: #ffffff;
   border: none;
   background-image: url("./img/arrow-right-circle.png");
@@ -84,9 +88,9 @@ button#done {
 
 button.back {
   padding: 13px 24px;
-  color: #212529;
+  color: var(--dark-gray);
   background: none;
-  border: 1px solid #212529;
+  border: 1px solid var(--dark-gray);
 }
 
 button.back:hover {
@@ -149,7 +153,7 @@ form,
   font-weight: 800;
   font-size: 2.6rem;
   line-height: 5rem;
-  color: #212529;
+  color: var(--dark-gray);
 }
 
 .left-side-picture p {
@@ -213,7 +217,7 @@ form,
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 150%;
-  color: #212529;
+  color: var(--dark-gray);
   border-bottom: 1px solid rgba(185, 180, 196, 0.3);
 }
 
@@ -250,7 +254,7 @@ form,
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 2.5rem;
-  color: #212529;
+  color: var(--dark-gray);
 }
 
 .wizard-1 {
@@ -316,11 +320,11 @@ form,
   font-weight: 400;
   font-size: 2rem;
   line-height: 150%;
-  color: #212529;
+  color: var(--dark-gray);
 }
 
 #form-personal-info input::placeholder {
-  color: #212529;
+  color: var(--dark-gray);
 }
 
 #form-personal-info input:last-child {
@@ -334,7 +338,7 @@ form,
 
 #form-personal-info input:focus {
   background: #e9ecef;
-  color: #212529;
+  color: var(--dark-gray);
 }
 
 #right-side main {
@@ -353,7 +357,7 @@ form,
   padding: 8px 16px;
   margin-bottom: 80px;
   margin-right: 4%;
-  color: #212529;
+  color: var(--dark-gray);
   background: #ffffff;
   box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
   border-radius: 4px;

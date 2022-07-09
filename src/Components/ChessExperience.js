@@ -23,8 +23,6 @@ export default function PersonalInfo({
       data.date_of_birth.slice(0, 4),
   };
 
-  console.log(requestData);
-
   useEffect(() => {
     setCharacterOptions(() => {
       return characters.map((obj) => {
