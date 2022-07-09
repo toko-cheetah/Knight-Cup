@@ -35,8 +35,8 @@ export default function App() {
       message: "Phone should contain 9 number characters",
     },
     date_of_birth: {
-      isValid: data.date_of_birth,
-      message: "Birth date is required!",
+      isValid: data.date_of_birth && data.date_of_birth.length < 11,
+      message: "Correct birth date is required!",
     },
     experience_level: {
       isValid: data.experience_level,

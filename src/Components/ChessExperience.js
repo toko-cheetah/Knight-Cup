@@ -23,6 +23,8 @@ export default function PersonalInfo({
       data.date_of_birth.slice(0, 4),
   };
 
+  console.log(requestData);
+
   useEffect(() => {
     setCharacterOptions(() => {
       return characters.map((obj) => {
@@ -39,16 +41,16 @@ export default function PersonalInfo({
   }, [characters]);
 
   const getEl = (id) => document.getElementById(id);
-  const saveSelectedInfo = (value, selected) =>
-    getEl(value) && (getEl(value)[selected] = true);
+  const saveSelectedInfo = (elId, selected) =>
+    getEl(elId) && (getEl(elId)[selected] = true);
   useEffect(() => {
-    saveSelectedInfo(data.experience_level, "selected");
-    saveSelectedInfo(data.character_id, "selected");
-    saveSelectedInfo(data.already_participated, "checked");
+    saveSelectedInfo(`experience-${data.experience_level}`, "selected");
+    saveSelectedInfo(`character-${data.character_id}`, "selected");
+    saveSelectedInfo(`participated-${data.already_participated}`, "checked");
   }, [
-    getEl(data.experience_level),
-    getEl(data.character_id),
-    getEl(data.already_participated),
+    getEl(`experience-${data.experience_level}`),
+    getEl(`character-${data.character_id}`),
+    getEl(`participated-${data.already_participated}`),
   ]);
 
   function validateAndSend() {
@@ -66,7 +68,9 @@ export default function PersonalInfo({
         body: JSON.stringify(requestData),
       }).then((res) =>
         res.ok
-          ? (navigate("/completed"), sessionStorage.clear())
+          ? (navigate("/completed"),
+            sessionStorage.clear(),
+            window.location.reload())
           : alert(
               "An error has occurred! Please, return to the home page and try the registration again!"
             )
@@ -105,13 +109,13 @@ export default function PersonalInfo({
           <div>
             <select name="experience_level" onChange={onChange}>
               <option value="">Level of knowledge *</option>
-              <option id="beginner" value="beginner">
+              <option id="experience-beginner" value="beginner">
                 Beginner
               </option>
-              <option id="normal" value="normal">
+              <option id="experience-normal" value="normal">
                 Intermediate
               </option>
-              <option id="professional" value="professional">
+              <option id="experience-professional" value="professional">
                 Professional
               </option>
             </select>
@@ -128,7 +132,7 @@ export default function PersonalInfo({
             <label>
               <input
                 type={"radio"}
-                id={"true"}
+                id={"participated-true"}
                 value={true}
                 name={"already_participated"}
                 onChange={onChange}
@@ -139,7 +143,7 @@ export default function PersonalInfo({
             <label>
               <input
                 type={"radio"}
-                id={"false"}
+                id={"participated-false"}
                 value={false}
                 name={"already_participated"}
                 onChange={onChange}
