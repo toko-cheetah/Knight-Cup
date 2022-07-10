@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Characters from "./Characters";
+import { charactersAltData } from "../helper";
 
 export default function PersonalInfo({
   onChange,
@@ -23,20 +24,24 @@ export default function PersonalInfo({
       data.date_of_birth.slice(0, 4),
   };
 
+  const generateCharacters = (array) =>
+    array.map((obj) => {
+      return (
+        <Characters
+          key={obj.id}
+          value={obj.id}
+          name={obj.name}
+          img={`https://chess-tournament-api.devtest.ge${obj.image}`}
+        />
+      );
+    });
   useEffect(() => {
     setCharacterOptions(() => {
-      return characters.map((obj) => {
-        return (
-          <Characters
-            key={obj.id}
-            value={obj.id}
-            name={obj.name}
-            img={`https://chess-tournament-api.devtest.ge${obj.image}`}
-          />
-        );
-      });
+      return characters.length
+        ? generateCharacters(characters)
+        : generateCharacters(charactersAltData);
     });
-  }, [characters]);
+  }, [characters, charactersAltData]);
 
   const getEl = (id) => document.getElementById(id);
   const saveSelectedInfo = (elId, selected) =>
@@ -49,6 +54,8 @@ export default function PersonalInfo({
     getEl(`experience-${data.experience_level}`),
     getEl(`character-${data.character_id}`),
     getEl(`participated-${data.already_participated}`),
+    characters,
+    characterOptions,
   ]);
 
   function validateAndSend() {
