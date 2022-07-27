@@ -114,6 +114,10 @@ button.back:hover {
 form,
 .buttons,
 #form-chess-experience,
+.custom-dropdown,
+.character-options,
+.character-options div,
+.error-message div,
 #completed {
   display: flex;
 }
@@ -194,7 +198,8 @@ form,
 #right-side h2,
 #right-side input,
 #right-side select,
-#right-side label {
+#right-side label,
+#right-side span {
   font-family: "Open Sans";
   font-style: normal;
 }
@@ -257,7 +262,9 @@ form,
   color: var(--dark-gray);
 }
 
-.wizard-1 {
+.wizard-1,
+#right-side main,
+.form-group {
   position: relative;
 }
 
@@ -275,6 +282,11 @@ form,
 #personal-info .wizard-2 {
   background: #f5f5f5;
   color: #95939a;
+}
+
+.wizard-active {
+  background: #e9faf1;
+  border: none;
 }
 
 .checked-wizard {
@@ -309,73 +321,233 @@ form,
   flex-direction: column;
 }
 
-#form-personal-info input {
+#form-personal-info input,
+.placeholder {
+  width: 100%;
   margin-bottom: 40px;
   padding: 8px 16px;
   border: none;
-  background: #ffffff;
-  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
   border-radius: 4px;
 
   font-weight: 400;
   font-size: 2rem;
   line-height: 150%;
   color: var(--dark-gray);
+}
+
+#form-personal-info input,
+#form-chess-experience .form-group input {
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
+
+  position: relative;
+  background: transparent;
+  z-index: 2;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: text;
+  z-index: 1;
+}
+
+.placeholder::after,
+.red-star {
+  color: #dc3545;
+}
+
+.placeholder::after {
+  content: " *";
 }
 
 #form-personal-info input::placeholder {
   color: var(--dark-gray);
 }
 
-#form-personal-info input:last-child {
-  margin-bottom: 0;
-}
-
-#form-personal-info input:hover {
+#form-personal-info input:hover,
+#form-personal-info input:hover::placeholder {
   background: #f8f9fa;
   color: rgba(33, 37, 41, 0.5);
 }
 
-#form-personal-info input:focus {
+#form-personal-info input:focus,
+#form-personal-info input:focus::placeholder {
   background: #e9ecef;
   color: var(--dark-gray);
 }
 
-#right-side main {
-  position: relative;
+.error-style,
+#form-personal-info input.error-style,
+#form-personal-info input.error-style::placeholder {
+  background: #ffefef;
+  color: #dc3545;
+}
+
+.error-message-container {
+  position: absolute;
+  top: 15px;
+  right: 39px;
+  z-index: 10;
+}
+
+.error-message {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.error-message.show-error {
+  display: block;
+}
+
+.error-message > div:first-child {
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 2.1rem;
+  color: #dc3545;
+}
+
+.error-message > div:first-child div p {
+  padding-left: 8px;
+}
+
+.error-message > div:last-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: var(--dark-gray);
+}
+
+.error-message div {
+  align-items: center;
+}
+
+.custom-dropdown,
+.buttons,
+.error-message div {
+  justify-content: space-between;
 }
 
 .buttons {
-  justify-content: space-between;
   position: absolute;
   bottom: 154px;
   width: calc(100% - 174px - 48px);
 }
 
-#form-chess-experience select {
-  width: 48%;
-  padding: 8px 16px;
-  margin-bottom: 80px;
-  margin-right: 4%;
-  color: var(--dark-gray);
-  background: #ffffff;
-  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
-  border-radius: 4px;
-  border: none;
-
+#form-chess-experience .form-group input,
+#form-chess-experience p,
+#input-radio {
   font-weight: 400;
   font-size: 2rem;
   line-height: 150%;
 }
 
-#form-chess-experience select:last-child {
-  margin-right: 0;
+#form-chess-experience .form-group {
+  width: 48%;
 }
 
-#input-radio {
-  font-weight: 400;
-  font-size: 20px;
+#form-chess-experience .form-group input,
+#form-chess-experience .options {
+  width: 100%;
+  border-radius: 4px;
+}
+
+#form-chess-experience .form-group input,
+#form-chess-experience .placeholder,
+#form-chess-experience .options > div,
+.close-error-tab {
+  cursor: pointer;
+}
+
+#form-chess-experience .form-group input {
+  padding: 8px 16px;
+  margin-bottom: 80px;
+  color: var(--dark-gray);
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.125);
+  border: none;
+}
+
+#form-chess-experience .form-group::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  transform: rotate(-45deg);
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+#form-chess-experience .form-group.active::after {
+  transform: rotate(-225deg);
+  top: 19px;
+}
+
+#form-chess-experience .options {
+  border: 1px solid rgba(185, 180, 196, 0.3);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 20px 0;
+  position: absolute;
+  top: 55px;
+  left: 0;
+  max-height: 335px;
+  overflow: scroll;
+  display: none;
+}
+
+#form-chess-experience .options.active {
+  display: block;
+}
+
+#form-chess-experience .options > div {
+  padding: 8px 20px;
+  margin-bottom: 10px;
+}
+
+#form-chess-experience .options > div:hover,
+#form-chess-experience .options > div:hover p {
+  background: #f7f7f9;
+  font-weight: 600;
+}
+
+#form-chess-experience .options > span {
+  font-weight: 600;
+  font-size: 1.6rem;
   line-height: 150%;
+
+  color: #817d7d;
+  margin: -10px 20px 8px;
+  display: inline-block;
+}
+
+.character-options {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.character-options div,
+.character-options img {
+  width: 100px;
+}
+
+.character-options div {
+  height: 72px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-left: 20px;
 }
 
 #input-radio > p {

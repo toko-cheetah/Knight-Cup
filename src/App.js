@@ -21,38 +21,45 @@ export default function App() {
   const [characters, setCharacters] = useState([]);
   const validate = {
     name: {
+      title: "name",
       isValid: data.name.length > 1,
       message: "Name should be minimum 2 characters long!",
     },
     email: {
+      title: "email address",
       isValid:
         data.email.slice(-"@redberry.ge".length) === "@redberry.ge" &&
         data.email.length > "@redberry.ge".length,
       message: "Email should be <name>@redberry.ge",
     },
     phone: {
+      title: "phone number",
       isValid: data.phone.length === 9 && !/\D/.test(data.phone),
       message: "Phone should contain 9 number characters",
     },
     date_of_birth: {
+      title: "date of birth",
       isValid: data.date_of_birth && data.date_of_birth.length < 11,
       message: "Correct birth date is required!",
     },
     experience_level: {
+      title: "level of knowledge",
       isValid: data.experience_level,
       message: "Level of knowledge is required!",
     },
     already_participated: {
+      title: "participation information",
       isValid: data.already_participated,
       message: "Participation information is required!",
     },
     character_id: {
+      title: "character",
       isValid: data.character_id,
       message: "Character is required!",
     },
   };
 
-  sessionStorage.setItem("data", JSON.stringify(data));
+  useEffect(() => sessionStorage.setItem("data", JSON.stringify(data)));
 
   useEffect(() => {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
@@ -74,10 +81,45 @@ export default function App() {
     }));
   }
 
+  function onClick(key, value, inputId, formId) {
+    setData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+
+    hideOptions(inputId, formId);
+  }
+
+  function hideOptions(inputId, formId) {
+    getEl(inputId).classList.toggle("active");
+    getEl(formId).classList.toggle("active");
+  }
+
+  const getEl = (id) => document.getElementById(id);
+  function wizardActive(array, targetId) {
+    let count = 0;
+
+    array.map((el) => data[el].length && (count = count + 1));
+
+    getEl(targetId) &&
+      getEl(targetId).classList.toggle("wizard-active", count > 0);
+  }
+
   function validateInfo(array) {
-    return array.map(
-      (item) => !validate[item].isValid && alert(validate[item].message)
-    );
+    return array.map((item) => {
+      getEl(`error-${item}`).classList.remove("show-error");
+
+      return (
+        !validate[item].isValid &&
+        (getEl(`error-${item}`).classList.add("show-error"),
+        document.querySelector(`.data-${item}`).classList.add("error-style"),
+        setTimeout(() => {
+          document
+            .querySelector(`.data-${item}`)
+            .classList.remove("error-style");
+        }, 3000))
+      );
+    });
   }
 
   return (
@@ -96,6 +138,7 @@ export default function App() {
                 data={data}
                 validate={validate}
                 validateInfo={validateInfo}
+                wizardActive={wizardActive}
               />
             }
           />
@@ -105,10 +148,13 @@ export default function App() {
             element={
               <ChessExperience
                 onChange={onChange}
+                onClick={onClick}
                 data={data}
                 characters={characters}
                 validate={validate}
                 validateInfo={validateInfo}
+                wizardActive={wizardActive}
+                hideOptions={hideOptions}
               />
             }
           />

@@ -1,9 +1,22 @@
 import React from "react";
 
-export default function Characters({ value, name }) {
+export default function Characters({ value, name, img, onClick }) {
   return (
-    <option value={value} id={`character-${value}`}>
-      {name}
-    </option>
+    <div
+      className="character-options"
+      onClick={() =>
+        onClick(
+          "character_id",
+          value.toString(),
+          "character-option",
+          "character-form"
+        )
+      }
+    >
+      <p>{name}</p>
+      <div>
+        <img src={img} alt="Character photo" />
+      </div>
+    </div>
   );
 }

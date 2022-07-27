@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Characters from "./Characters";
-import { charactersAltData } from "../helper";
+import { charactersAltData, errorMessage } from "../helper";
 
 export default function PersonalInfo({
   onChange,
+  onClick,
   data,
   characters,
   validate,
   validateInfo,
+  wizardActive,
+  hideOptions,
 }) {
   const [characterOptions, setCharacterOptions] = useState([]);
-  const navigate = useNavigate();
+  const [error, setError] = useState([]);
+  const chessExperienceKeys = [
+    "experience_level",
+    "character_id",
+    "already_participated",
+  ];
   const requestData = {
     ...data,
     already_participated: data.already_participated === "true",
@@ -23,6 +31,7 @@ export default function PersonalInfo({
       "/" +
       data.date_of_birth.slice(0, 4),
   };
+  const navigate = useNavigate();
 
   const generateCharacters = (array) =>
     array.map((obj) => {
@@ -32,6 +41,7 @@ export default function PersonalInfo({
           value={obj.id}
           name={obj.name}
           img={`https://chess-tournament-api.devtest.ge${obj.image}`}
+          onClick={onClick}
         />
       );
     });
@@ -43,23 +53,54 @@ export default function PersonalInfo({
     });
   }, [characters, charactersAltData]);
 
+  useEffect(() => {
+    wizardActive(chessExperienceKeys, "wizard-two");
+
+    characters.length
+      ? characters.map(
+          (obj) =>
+            obj.id == data.character_id &&
+            (getEl("character-id").value = obj.name)
+        )
+      : charactersAltData.map(
+          (obj) =>
+            obj.id == data.character_id &&
+            (getEl("character-id").value = obj.name)
+        );
+
+    almostDone();
+  });
+
   const getEl = (id) => document.getElementById(id);
   const saveSelectedInfo = (elId, selected) =>
     getEl(elId) && (getEl(elId)[selected] = true);
   useEffect(() => {
-    saveSelectedInfo(`experience-${data.experience_level}`, "selected");
-    saveSelectedInfo(`character-${data.character_id}`, "selected");
     saveSelectedInfo(`participated-${data.already_participated}`, "checked");
   }, [
-    getEl(`experience-${data.experience_level}`),
-    getEl(`character-${data.character_id}`),
     getEl(`participated-${data.already_participated}`),
     characters,
     characterOptions,
   ]);
 
+  useEffect(() => {
+    setError(
+      chessExperienceKeys.map((key) =>
+        errorMessage(key, validate[key].title, validate[key].message)
+      )
+    );
+  }, []);
+
+  function almostDone() {
+    let count = 0;
+    const keys = Object.keys(data);
+
+    keys.map((key) => data[key].length && (count = count + 1));
+    count === keys.length &&
+      (getEl("chess-experience-header").textContent = "Almost done!");
+  }
+
   function validateAndSend() {
-    validateInfo(["experience_level", "character_id", "already_participated"]);
+    validateInfo(chessExperienceKeys);
 
     validate.experience_level.isValid &&
       validate.character_id.isValid &&
@@ -84,7 +125,7 @@ export default function PersonalInfo({
 
   return (
     <div id="chess-experience">
-      <header>
+      <header id="chess-experience-header">
         <p>First step is done, continue to finish onboarding</p>
       </header>
 
@@ -97,7 +138,7 @@ export default function PersonalInfo({
           </div>
 
           <div>
-            <div className="wizard-2">
+            <div className="wizard-2" id="wizard-two">
               <p>2</p>
             </div>
 
@@ -111,28 +152,112 @@ export default function PersonalInfo({
         </div>
 
         <form id="form-chess-experience">
-          <div>
-            <select name="experience_level" onChange={onChange}>
-              <option value="">Level of knowledge *</option>
-              <option id="experience-beginner" value="beginner">
-                Beginner
-              </option>
-              <option id="experience-normal" value="normal">
-                Intermediate
-              </option>
-              <option id="experience-professional" value="professional">
-                Professional
-              </option>
-            </select>
+          <div className="custom-dropdown">
+            <div className="form-group" id="experience-form">
+              <input
+                type={"text"}
+                value={data.experience_level.replace(
+                  /beginner|normal|professional/g,
+                  (replace) =>
+                    ({
+                      beginner: "Beginner",
+                      normal: "Intermediate",
+                      professional: "Professional",
+                    }[replace])
+                )}
+                onClick={() =>
+                  hideOptions("experience-option", "experience-form")
+                }
+                readOnly
+              />
+              <label
+                className="placeholder data-experience_level"
+                style={{
+                  display: data.experience_level.length ? "none" : "block",
+                }}
+              >
+                Level of knowledge
+              </label>
 
-            <select name="character_id" onChange={onChange}>
-              <option value="">Choose your character *</option>
-              {characterOptions}
-            </select>
+              <div className="options" id="experience-option">
+                <div
+                  onClick={() =>
+                    onClick(
+                      "experience_level",
+                      "beginner",
+                      "experience-option",
+                      "experience-form"
+                    )
+                  }
+                >
+                  <p>Beginner</p>
+                </div>
+
+                <div
+                  onClick={() =>
+                    onClick(
+                      "experience_level",
+                      "normal",
+                      "experience-option",
+                      "experience-form"
+                    )
+                  }
+                >
+                  <p>Intermediate</p>
+                </div>
+
+                <div
+                  onClick={() =>
+                    onClick(
+                      "experience_level",
+                      "professional",
+                      "experience-option",
+                      "experience-form"
+                    )
+                  }
+                >
+                  <p>Professional</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="form-group" id="character-form">
+              <input
+                type={"text"}
+                id="character-id"
+                onClick={() =>
+                  hideOptions("character-option", "character-form")
+                }
+                readOnly
+              />
+              <label
+                className="placeholder data-character_id"
+                style={{
+                  display: data.character_id.length ? "none" : "block",
+                }}
+              >
+                Choose your character
+              </label>
+
+              <div className="options" id="character-option">
+                <span>
+                  (Total{" "}
+                  {characters.length
+                    ? characters.length
+                    : charactersAltData.length}
+                  )
+                </span>
+
+                {characterOptions}
+              </div>
+            </div>
           </div>
 
           <div id="input-radio">
-            <p>Have you participated in the Redberry Championship? *</p>
+            <p className="data-already_participated">
+              Have you participated in the Redberry Championship?{" "}
+              <span className="red-star">*</span>
+            </p>
 
             <label>
               <input
@@ -157,6 +282,8 @@ export default function PersonalInfo({
             </label>
           </div>
         </form>
+
+        <div className="error-message-container">{error}</div>
 
         <div className="buttons">
           <Link to={"/personal-info"}>
