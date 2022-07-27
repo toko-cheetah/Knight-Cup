@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Knight-Cup/static/css/main.0cd5812d.css",
-    "main.js": "/Knight-Cup/static/js/main.c7ad118a.js",
+    "main.css": "/Knight-Cup/static/css/main.b004e939.css",
+    "main.js": "/Knight-Cup/static/js/main.a497e889.js",
     "static/media/unsplash_27LH_0jXKYI-2.png": "/Knight-Cup/static/media/unsplash_27LH_0jXKYI-2.f14eefef55252f32f98e.png",
     "static/media/unsplash_27LH_0jXKYI.png": "/Knight-Cup/static/media/unsplash_27LH_0jXKYI.56cc08bcf7c2cc0f900d.png",
     "static/media/unsplash_27LH_0jXKYI-1.png": "/Knight-Cup/static/media/unsplash_27LH_0jXKYI-1.fcfda2a383d708f2474f.png",
     "static/media/Landing page- scrolling photo.png": "/Knight-Cup/static/media/Landing page- scrolling photo.5349eb534056c6d52578.png",
     "static/media/Succsess rocket.png": "/Knight-Cup/static/media/Succsess rocket.0a391d2737f5bc96a695.png",
     "index.html": "/Knight-Cup/index.html",
-    "main.0cd5812d.css.map": "/Knight-Cup/static/css/main.0cd5812d.css.map",
-    "main.c7ad118a.js.map": "/Knight-Cup/static/js/main.c7ad118a.js.map"
+    "main.b004e939.css.map": "/Knight-Cup/static/css/main.b004e939.css.map",
+    "main.a497e889.js.map": "/Knight-Cup/static/js/main.a497e889.js.map"
   },
   "entrypoints": [
-    "static/css/main.0cd5812d.css",
-    "static/js/main.c7ad118a.js"
+    "static/css/main.b004e939.css",
+    "static/js/main.a497e889.js"
   ]
 }
